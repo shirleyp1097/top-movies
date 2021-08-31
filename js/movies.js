@@ -1,6 +1,8 @@
 
 
-fetch('https://spangled-capable-lightning.glitch.me/movies')
+const url = 'https://spangled-capable-lightning.glitch.me/movies'
+
+fetch(url)
 .then(response => response.json())
 .then($('#loading').html(""))
 .then(data => formatMovies(data))
@@ -18,11 +20,35 @@ function formatMovies(movies){
     $('#movie-list').html(html);
 }
 
-/// what are we trying to do?
 
-/// display a loading message
+function addMovies(){
+    $('#submit-button').click(function(e){
+        e.preventDefault();
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title:$('#user-movie').val(),
+                rating:$('#user-rating').val()
+            }),
+        };
+        fetch(url, options)
+            .then(response => response.json())
+            // .then(data => formatMovies(data))
+            .catch(console.error)
 
-/// finished list of movies
+        // console.log($('#user-movie').val());
+        // console.log($('#user-rating').val());
+    })
+}
+addMovies()
+
+fetch(url)
+    .then(response=> response.json())
+    .then(data => formatMovies(data))
+    .catch(console.error)
 
 /// ability to add movies
 
