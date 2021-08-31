@@ -1,14 +1,20 @@
+
+
 fetch('https://spangled-capable-lightning.glitch.me/movies')
 .then(response => response.json())
+.then($('#loading').html(""))
 .then(data => formatMovies(data))
-.catch(console.error);
+.catch(console.error)
+
 
 
 function formatMovies(movies){
     let html = ""
     movies.forEach((movie, index ,arr) =>{
-         html += '<p>' + movie.title + '</p>'
-    })
+        if(movie.hasOwnProperty('title')) {
+            html += '<h4>' + movie.title + '</h4>' +
+                '<p>' + movie.rating + '/5' + '</p>'
+        }})
     $('#movie-list').html(html);
 }
 
