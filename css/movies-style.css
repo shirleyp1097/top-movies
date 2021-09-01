@@ -1,5 +1,16 @@
 body{
     background-color: #FFB319;
+    background-image: url("../img/reel.png");
+    background-repeat: space;
+}
+
+.application-parent{
+    display: flex;
+    width: 100%;
+}
+.application-child{
+    margin: auto;
+    margin-top: 120px;
 }
 
 h4{

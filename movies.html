@@ -5,7 +5,7 @@
     <title>Movies</title>
 
 <!--    boostrap-->
-<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 <!--    google fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +16,8 @@
 <body>
 
 <h1 id="loading"> Loading ...</h1>
+<div class="application-parent">
+    <div class ="application-child">
 <div id="input-parent">
     <form>
     <input id="user-movie" type="text" placeholder="Add Your Movie here"/>
@@ -35,6 +37,7 @@
     <form>
         <select id="all_movies"></select>
         <input id="new-movie-title" type="text" placeholder="Add your new movie title here" required>
+        <br>
         <select id="new-user-rating">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -42,10 +45,12 @@
             <option value="4">4</option>
             <option value="5">5</option>
         </select>
+        <br>
         <button id="submit-edit">Submit Edit</button>
     </form>
 </div>
-
+    </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="js/keys.js"></script>

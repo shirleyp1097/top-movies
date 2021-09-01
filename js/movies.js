@@ -1,5 +1,4 @@
 
-
 const url = 'https://spangled-capable-lightning.glitch.me/movies'
 updateDropdown();
 // INITALIZATION
