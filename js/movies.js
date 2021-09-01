@@ -1,7 +1,7 @@
 
 
 const url = 'https://spangled-capable-lightning.glitch.me/movies'
-
+updateDropdown();
 // INITALIZATION
 fetch(url)
 .then(response => response.json())
@@ -49,6 +49,7 @@ $(document).on('click','.delete-button', function() {
     fetch(url + '/' + String(buttonNumber), options)
         .then(response => console.log(response.json()))
         .then(displayMovies)
+        .then(updateDropdown)
         .catch(console.error);
 });
 
@@ -66,6 +67,7 @@ $('#submit-button').click(function(e){
     };
 
     fetch(url, options)
+        .then(updateDropdown)
         .then(displayMovies)
         .catch(console.error);
 })
@@ -80,7 +82,7 @@ function displayMovies() {
         .catch(console.error)
 }
 
-
+function updateDropdown(){
 fetch(url)
     .then(response => response.json())
     .then(movies => {
@@ -91,14 +93,14 @@ fetch(url)
         )
         html += '</select>'
         $('#all_movies').html(html)
-    })
+    })}
 
 $('#submit-edit').click(function(e) {
     e.preventDefault();
     let originalMovieName = $('#all_movies').val();
     let changedMovieName = $('#new-movie-title').val();
     let changedMovieRating = $('#new-user-rating').val();
-
+    console.log(originalMovieName)
 
 
     const options = {
@@ -113,6 +115,7 @@ $('#submit-edit').click(function(e) {
     };
 
     fetch(url + '/' + originalMovieName, options)
+        .then(updateDropdown)
         .then(displayMovies)
         .catch(console.error);
 })
