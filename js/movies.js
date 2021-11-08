@@ -6,7 +6,10 @@ const url = 'https://spangled-capable-lightning.glitch.me/movies'
 fetch(url)
 .then(response => response.json())
 .then($('#loading').html(""))
-.then(data => formatMovies(data))
+.then(function(data) {
+    console.log(data);
+    formatMovies(data);
+})
 .catch(console.error)
 
 
@@ -119,6 +122,6 @@ $('#submit-edit').click(function(e) {
 
 
 
-
+// make a change
 ///what is the mvp?
 ///what can we add to the project?
