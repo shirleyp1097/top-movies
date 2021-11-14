@@ -4,13 +4,44 @@ const omdbURL = `http://www.omdbapi.com/?apikey=${OMDB_KEY}&t=`
 
 $(document).ready(function() {
     // INITIALIZATION
-    (function startPage() {
-        fetch(url)
-            .then(response => response.json())
-            .then($('#loading').html(""))
-            .then(() => displayMovies())
-            .catch(console.error)
-    })();
+    // (function startPage() {
+    //     fetch(url)
+    //         .then(response => response.json())
+    //         .then($('#loading').html(""))
+    //         .then(() => displayMovies())
+    //         .catch(console.error)
+    // })();
+
+    fetch(omdbURL + "Don Jon")
+        .then(res => res.json())
+        .then(data => {
+            let originalhtml = `<button onclick="on()">More Info</button>`
+            $(document).append(originalhtml);
+            let html = `
+                <div class="container" id="overlay" style="display:none" onclick="off()">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="${data.Poster}">
+                        </div>
+                        <div class="col-md-8">
+                            <h2>${data.Title} (${data.Year})</h2>
+                            <h5>${data.Rated} | ${data.Genre} | ${data.Runtime}</h5>
+                            <p> ${data.Plot}</p>
+                        </div>
+                    </div>
+                </div>
+            `
+            $('#movie-list').html(html);
+
+            function on() {
+                $('#overlay').style("display","block");
+            }
+
+            function off() {
+                $('#overlay').style("display","none");
+            }
+        })
+        .catch(console.error);
 
     function displayMovies() {
         fetch(url)
@@ -27,25 +58,40 @@ $(document).ready(function() {
                     .then(res => res.json())
                     .then(data => {
                         console.log(data);
-                        if (data.Error) {
-                            let movieHtml = `
-                        <div class = "col-md-3 card">
-                            <img src="https://www.reelviews.net/resources/img/default_poster.jpg">
-                            <h4>${movie.title}</h4>
-                            <button class="delete-button" id="${movie.id}">Delete Movie</button>
-                        </div>
-                    `;
-                            $('#movie-list').append(movieHtml);
+                        let html = "";
+                        let img = "";
+                        html += `<div class="col-md-3 card">`
+                        if (data.Error || data.Poster == "N/A") {
+                            img =  `<img class="card-img-top p-2" src="https://www.reelviews.net/resources/img/default_poster.jpg">`
                         } else {
-                            let movieHtml = `
-                        <div class = "col-md-3 card">
-                            <img src="${data.Poster}">
-                            <h4>${movie.title}</h4>
-                            <button class="delete-button" id="${movie.id}">Delete Movie</button>
-                        </div>
-                    `;
-                            $('#movie-list').append(movieHtml);
+                            img = `<img class="card-img-top p-2" src="${data.Poster}">`
                         }
+                        html += img;
+                        html += `
+                            <h4>${movie.title}</h4>
+                            <div class="row">
+                                <button class="more-info btn btn-primary col-md-6" id="${movie.id}">More Info</button>
+                                <button class="delete-button btn btn-danger col-md-6" id="${movie.id}">Delete Movie</button>
+                            </div>
+                            </div>
+                        `;
+                        $('#movie-list').append(html);
+
+                        // Add more info view but hidden
+                        let moreInfoHtml = `
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        
+                                    </div>
+                                    <div class="col-md-8">
+                                    
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        `;
+
                     })
                     .catch(console.error);
         })
@@ -60,6 +106,12 @@ $(document).ready(function() {
         html += '</select>'
         $('#all_movies').html(html);
     }
+
+    // MORE INFO
+    // $(document).on('click','.more-info', function() {
+    //     console.log($(this).)
+    //     // fetch(omdbURL + )
+    // })
 
     // DELETE FUNCTIONALITY
     $(document).on('click','.delete-button', function() {
