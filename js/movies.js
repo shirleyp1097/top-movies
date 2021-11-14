@@ -15,10 +15,9 @@ $(document).ready(function() {
     fetch(omdbURL + "Don Jon")
         .then(res => res.json())
         .then(data => {
-            let originalhtml = `<button onclick="on()">More Info</button>`
-            $(document).append(originalhtml);
+
             let html = `
-                <div class="container" id="overlay" style="display:none" onclick="off()">
+                <div class="container" id="overlay" style="display:none">
                     <div class="row">
                         <div class="col-md-4">
                             <img src="${data.Poster}">
@@ -33,13 +32,14 @@ $(document).ready(function() {
             `
             $('#movie-list').html(html);
 
-            function on() {
-                $('#overlay').style("display","block");
-            }
+            let originalhtml = `<button id="moreInfo">More Info</button>`
+            $('body').append(originalhtml);
+            $('#moreInfo').on('click', function(e) {
+                $('#overlay').css("display","block")});
 
-            function off() {
-                $('#overlay').style("display","none");
-            }
+            $('#overlay').on('click', function(e) {
+                $('#overlay').css("display","none")});
+
         })
         .catch(console.error);
 
