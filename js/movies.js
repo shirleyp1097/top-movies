@@ -4,13 +4,13 @@ const omdbURL = `http://www.omdbapi.com/?apikey=${OMDB_KEY}&t=`
 
 $(document).ready(function() {
     // INITIALIZATION
-    // (function startPage() {
-    //     fetch(url)
-    //         .then(response => response.json())
-    //         .then($('#loading').html(""))
-    //         .then(() => displayMovies())
-    //         .catch(console.error)
-    // })();
+    (function startPage() {
+        fetch(url)
+            .then(response => response.json())
+            .then($('#loading').html(""))
+            .then(() => displayMovies())
+            .catch(console.error)
+    })();
 
     fetch(omdbURL + "Don Jon")
         .then(res => res.json())
@@ -177,4 +177,6 @@ $(document).ready(function() {
             .catch(console.error);
     })
 })
+
+// pushing is for chumps
 
